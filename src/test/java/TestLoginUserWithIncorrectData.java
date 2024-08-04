@@ -23,7 +23,7 @@ public class TestLoginUserWithIncorrectData extends BaseTest {
         this.HTTP_STATUS_CODE = httpStatusCode;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "{index}: email - {0}, password - {1}")
     public static Object[][] getLoginData() {
         return new Object[][] {
             {null, "password", SC_UNAUTHORIZED},

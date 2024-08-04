@@ -59,10 +59,10 @@ public class MethodsForTestsUserAPI {
     }
 
     @Step("Send PATCH request to /api/auth/user")
-    public Response sendPatchRequestApiAuthUser(User userData, String userToken) {
+    public Response sendPatchRequestApiAuthUser(User userData, String accessToken) {
         Response response =
             given()
-                .auth().oauth2(userToken)
+                .auth().oauth2(accessToken)
                 .header("Content-type","application/json")
                 .and()
                 .body(userData)
