@@ -8,5 +8,4 @@ public class BaseTest {
     public void setUp() {
         RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
     }
-
 }

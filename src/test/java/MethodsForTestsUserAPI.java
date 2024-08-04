@@ -59,11 +59,27 @@ public class MethodsForTestsUserAPI {
     }
 
     @Step("Send PATCH request to /api/auth/user")
-    public Response sendPatchRequestApiAuthUser(String userToken) {
+    public Response sendPatchRequestApiAuthUser(User userData, String userToken) {
         Response response =
             given()
                 .auth().oauth2(userToken)
                 .header("Content-type","application/json")
+                .and()
+                .body(userData)
+                .when()
+                .patch(userEndpoint);
+
+        return response;
+    }
+
+    @Step("Send unauthorized PATCH request to /api/auth/user")
+    public Response sendPatchRequestApiAuthUser(User userData) {
+        Response response =
+            given()
+                .header("Content-type","application/json")
+                .and()
+                .body(userData)
+                .when()
                 .patch(userEndpoint);
 
         return response;
