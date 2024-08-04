@@ -22,7 +22,7 @@ public class TestCreateOrder extends BaseTest {
         this.methodsForTestsUserAPI = new MethodsForTestsUserAPI();
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "{index}: user: {0}")
     public static Object[][] getAccessToken() {
         User user = new User("test-email@test.ru", "password", "TestName");
 
@@ -85,7 +85,7 @@ public class TestCreateOrder extends BaseTest {
     }
 
     @Test
-    @DisplayName("Create order")
+    @DisplayName("Create order with null ingredient")
     @Description("Test for POST /api/orders")
     public void createOrderWithBrokenDataReturns400() {
         RequestCreateOrderDetails orderDetails = new RequestCreateOrderDetails(
@@ -100,7 +100,7 @@ public class TestCreateOrder extends BaseTest {
     }
 
     @Test
-    @DisplayName("Create order")
+    @DisplayName("Create order without ingredients")
     @Description("Test for POST /api/orders")
     public void createOrderWithoutDataReturns400() {
         RequestCreateOrderDetails orderDetails = new RequestCreateOrderDetails(

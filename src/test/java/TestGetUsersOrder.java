@@ -31,7 +31,6 @@ public class TestGetUsersOrder extends BaseTest {
         MethodsForCheckResponse.compareStatusCode(response, SC_OK);
         MethodsForCheckResponse.checkBooleanValueOfFieldFromBody(response, "success", true);
 
-        // TODO: Возможно, стоит проверить схему данных, понабивать заказы для пользователя, но маловато времени
 
         methodsForTestsUserAPI.sendDeleteRequestApiAuthUser(accessToken);
     }
