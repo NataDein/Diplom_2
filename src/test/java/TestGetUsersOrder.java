@@ -21,16 +21,14 @@ public class TestGetUsersOrder extends BaseTest {
         User user = new User("test-email@test.ru", "password", "TestName");
 
         // Направляем POST запрос на /api/auth/register для создания пользователя, сохраняем его токен
-        String accessToken = methodsForTestsUserAPI
-            .sendPostRequestApiAuthRegister(user)
-            .body().as(ResponseAuthorizationData.class)
-            .getAccessToken();
+        String accessToken = methodsForTestsUserAPI.getAccessToken(
+            methodsForTestsUserAPI.sendPostRequestApiAuthRegister(user)
+        );
 
         Response response = methodsForTestsOrdersAPI.sendGetRequestApiOrder(accessToken);
 
         MethodsForCheckResponse.compareStatusCode(response, SC_OK);
         MethodsForCheckResponse.checkBooleanValueOfFieldFromBody(response, "success", true);
-
 
         methodsForTestsUserAPI.sendDeleteRequestApiAuthUser(accessToken);
     }

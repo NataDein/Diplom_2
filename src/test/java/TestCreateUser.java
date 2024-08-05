@@ -38,7 +38,7 @@ public class TestCreateUser extends BaseTest {
 
         // Удаляем созданного пользователя
         methodsForTestsUserAPI.sendDeleteRequestApiAuthUser(
-            response.body().as(ResponseAuthorizationData.class).getAccessToken()
+            methodsForTestsUserAPI.getAccessToken(response)
         );
     }
 
@@ -63,7 +63,7 @@ public class TestCreateUser extends BaseTest {
 
         // Удаляем созданного пользователя
         methodsForTestsUserAPI.sendDeleteRequestApiAuthUser(
-            firstResponse.body().as(ResponseAuthorizationData.class).getAccessToken()
+            methodsForTestsUserAPI.getAccessToken(firstResponse)
         );
     }
 

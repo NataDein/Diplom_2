@@ -47,7 +47,9 @@ public class TestLoginUserWithIncorrectData extends BaseTest {
         Response creationResponse = methodsForTestsUserAPI.sendPostRequestApiAuthRegister(user);
 
         // Направляем POST запрос на /api/auth/login для логина созданного пользователя
-        Response response = methodsForTestsUserAPI.sendPostRequestApiAuthLogin(new User(EMAIL, PASSWORD, null));
+        Response response = methodsForTestsUserAPI.sendPostRequestApiAuthLogin(
+            new User(EMAIL, PASSWORD, null)
+        );
 
         // Сверяем полученный код ответа
         MethodsForCheckResponse.compareStatusCode(response, HTTP_STATUS_CODE);
@@ -57,7 +59,7 @@ public class TestLoginUserWithIncorrectData extends BaseTest {
 
         // Удаляем созданного пользователя
         methodsForTestsUserAPI.sendDeleteRequestApiAuthUser(
-            creationResponse.body().as(ResponseAuthorizationData.class).getAccessToken()
+            methodsForTestsUserAPI.getAccessToken(creationResponse)
         );
     }
 }

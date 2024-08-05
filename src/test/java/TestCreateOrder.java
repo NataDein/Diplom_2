@@ -54,10 +54,9 @@ public class TestCreateOrder extends BaseTest {
     @DisplayName("Create order")
     @Description("Test for POST /api/orders")
     public void createOrderWithCorrectDataReturnsOK() {
-        Ingredient[] responseIngredients = methodsForTestsOrdersAPI
-            .sendGetRequestApiIngredients()
-            .body().as(ResponseIngredientsData.class)
-            .getData();
+        Ingredient[] responseIngredients = methodsForTestsOrdersAPI.getData(
+            methodsForTestsOrdersAPI.sendGetRequestApiIngredients()
+        );
 
         RequestCreateOrderDetails orderDetails = new RequestCreateOrderDetails(
             new String[] { responseIngredients[0].get_id() }

@@ -29,15 +29,11 @@ public class TestChangeUsersData extends BaseTest {
         expectedUserData.put("name", changedUser.getName());
 
         // Направляем POST запрос на /api/auth/register для создания пользователя, сохраняем его токен
-        String userAccessToken = methodsForTestsUserAPI
-            .sendPostRequestApiAuthRegister(user)
-            .body().as(ResponseAuthorizationData.class)
-            .getAccessToken();
-
-        Response response = methodsForTestsUserAPI.sendPatchRequestApiAuthUser(
-            changedUser,
-            userAccessToken
+        String userAccessToken = methodsForTestsUserAPI.getAccessToken(
+            methodsForTestsUserAPI.sendPostRequestApiAuthRegister(user)
         );
+
+        Response response = methodsForTestsUserAPI.sendPatchRequestApiAuthUser(changedUser, userAccessToken);
 
         // Сверяем полученный код ответа
         MethodsForCheckResponse.compareStatusCode(response, SC_OK);
@@ -50,29 +46,22 @@ public class TestChangeUsersData extends BaseTest {
     }
 
     @Test
-    @DisplayName("Change user data with authorization and email in use")
+    @DisplayName("Change user email to existed one with authorization")
     @Description("Test for PATCH /api/auth/user")
-    public void changeUserDataViaAuthorizedUserReturns403() {
+    public void changeUserDataToExistedViaAuthorizedUserReturns403() {
         User user = new User("test-email@test.ru", "password", "TestName");
         User existedUser = new User("existed-test-email@test.ru", "existed-password", "ExistedTestName");
         User changedUser = new User("existed-test-email@test.ru", "changed-password", "changed-TestName");
 
-        HashMap<String, String> expectedUserData = new HashMap<>();
-
-        expectedUserData.put("email", changedUser.getEmail());
-        expectedUserData.put("name", changedUser.getName());
+        // Направляем POST запрос на /api/auth/register для создания пользователя, сохраняем его токен
+        String existedUserAccessToken = methodsForTestsUserAPI.getAccessToken(
+            methodsForTestsUserAPI.sendPostRequestApiAuthRegister(existedUser)
+        );
 
         // Направляем POST запрос на /api/auth/register для создания пользователя, сохраняем его токен
-        String existedUserAccessToken = methodsForTestsUserAPI
-            .sendPostRequestApiAuthRegister(existedUser)
-            .body().as(ResponseAuthorizationData.class)
-            .getAccessToken();
-
-        // Направляем POST запрос на /api/auth/register для создания пользователя, сохраняем его токен
-        String userAccessToken = methodsForTestsUserAPI
-            .sendPostRequestApiAuthRegister(user)
-            .body().as(ResponseAuthorizationData.class)
-            .getAccessToken();
+        String userAccessToken = methodsForTestsUserAPI.getAccessToken(
+            methodsForTestsUserAPI.sendPostRequestApiAuthRegister(user)
+        );
 
         Response response = methodsForTestsUserAPI.sendPatchRequestApiAuthUser(
             changedUser,

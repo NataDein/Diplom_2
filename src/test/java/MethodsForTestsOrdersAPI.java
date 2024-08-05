@@ -9,6 +9,11 @@ public class MethodsForTestsOrdersAPI {
     protected String allOrdersEndpoint = baseOrdersEndpoint + "/all";
 
 
+
+    public Ingredient[] getData(Response response) {
+        return response.body().as(ResponseIngredientsData.class).getData();
+    }
+
     @Step("Send GET request to /api/auth/user")
     public Response sendGetRequestApiIngredients() {
         Response response =

@@ -1,7 +1,8 @@
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class ResponseUserData extends ResponseBaseData {
     User user;
-
-    public User getUser() { return user; }
-
-    public void setUser(User user) { this.user = user; }
 }

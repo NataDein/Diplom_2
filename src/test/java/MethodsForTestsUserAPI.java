@@ -10,6 +10,10 @@ public class MethodsForTestsUserAPI {
     protected String loginUserEndpoint = baseAuthUserEndpoint + "/login";
 
 
+    public String getAccessToken(Response response) {
+        return response.body().as(ResponseAuthorizationData.class).getAccessToken();
+    }
+
     @Step("Send POST request to /api/auth/register")
     public Response sendPostRequestApiAuthRegister(User user) {
         Response response =
