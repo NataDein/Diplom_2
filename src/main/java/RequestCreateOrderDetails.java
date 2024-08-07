@@ -2,7 +2,7 @@ import lombok.Data;
 
 @Data
 public class RequestCreateOrderDetails {
-    String[] ingredients;
+    private String[] ingredients;
 
     public RequestCreateOrderDetails(String[] ingredients) {
         this.ingredients = ingredients;

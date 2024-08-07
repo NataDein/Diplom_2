@@ -18,7 +18,13 @@ public class TestLoginUser extends BaseTest {
     @DisplayName("Login existed user with correct data")
     @Description("Test for POST /api/auth/login endpoint")
     public void loginUserWithCorrectDataReturnsOK() {
-        // Создаем объект
+        /* Создаем объект
+         NOTE: Возможно применение рандомизации в случае, когда БД
+         и тестовое окружение нам не подконтрольно.
+
+         Это сводит возможность создания уже имеющегося в БД пользователя
+         к минимуму, хотя и не исключает такой коллизии полностью.
+         */
         User user = new User("test-email@test.ru", "password", "TestName");
 
         HashMap<String, String> expectedUserData = new HashMap<>();
@@ -31,7 +37,7 @@ public class TestLoginUser extends BaseTest {
 
         // Направляем POST запрос на /api/auth/login для логина созданного пользователя
         Response response = methodsForTestsUserAPI.sendPostRequestApiAuthLogin(
-            new User("test-email@test.ru", "password", null)
+            new User(user.getEmail(), user.getPassword(), null)
         );
 
         // Сверяем полученный код ответа
